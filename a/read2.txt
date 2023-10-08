@@ -1,0 +1,357 @@
+2. Calculator
+
+java
+package com.example.program2;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    Button one, two, three, four, five, six, seven, eight, nine, zero;
+    Button clear, plus, minus, multiply, divide, equal;
+    EditText res;
+    String operatorPressed = " ";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        res = findViewById(R.id.res);
+        one = findViewById(R.id.one);
+        two = findViewById(R.id.two);
+        three = findViewById(R.id.three);
+        four = findViewById(R.id.four);
+        five = findViewById(R.id.five);
+        six = findViewById(R.id.six);
+        seven = findViewById(R.id.seven);
+        eight = findViewById(R.id.eight);
+        nine = findViewById(R.id.nine);
+        zero = findViewById(R.id.zero);
+        clear = findViewById(R.id.clear);
+        plus = findViewById(R.id.plus);
+        minus = findViewById(R.id.minus);
+        divide = findViewById(R.id.divide);
+        multiply = findViewById(R.id.multiply);
+        equal = findViewById(R.id.equal);
+
+        one.setOnClickListener(this);
+        two.setOnClickListener(this);
+        three.setOnClickListener(this);
+        four.setOnClickListener(this);
+        five.setOnClickListener(this);
+        six.setOnClickListener(this);
+        seven.setOnClickListener(this);
+        eight.setOnClickListener(this);
+        nine.setOnClickListener(this);
+        zero.setOnClickListener(this);
+        clear.setOnClickListener(this);
+        plus.setOnClickListener(this);
+        minus.setOnClickListener(this);
+        divide.setOnClickListener(this);
+        multiply.setOnClickListener(this);
+        equal.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        double finalresult = 0.0;
+
+        switch(view.getId())
+        {
+            case R.id.one: res.append("1");
+                            break;
+
+            case R.id.two: res.append("2");
+                            break;
+
+            case R.id.three: res.append("3");
+                            break;
+
+            case R.id.four: res.append("4");
+                            break;
+
+            case R.id.five: res.append("5");
+                            break;
+
+            case R.id.six: res.append("6");
+                break;
+            case R.id.seven: res.append("7");
+                break;
+            case R.id.eight: res.append("8");
+                break;
+            case R.id.nine: res.append("9");
+                break;
+
+            case R.id.plus: res.append("+");
+                            operatorPressed = "+";
+                break;
+
+            case R.id.minus: res.append("-");
+                operatorPressed = "-";
+                break;
+            case R.id.divide: res.append("/");
+                operatorPressed = "/";
+                break;
+            case R.id.multiply: res.append("*");
+                operatorPressed = "*";
+                break;
+            case R.id.clear: res.setText(" ");
+                break;
+
+            case R.id.equal: finalresult = evaluateExpression(res.getText().toString(), operatorPressed);
+                res.setText(String.valueOf(finalresult));
+                break;
+
+            default: return;
+
+        }
+
+    }
+    private double evaluateExpression(String res, String operatorPressed) {
+
+        String[] tokens = res.split("\\+|-|\\*|\\/");
+        double firstOperand = Double.parseDouble(tokens[0]);
+        double secondOperand = Double.parseDouble(tokens[1]);
+
+        switch(operatorPressed) {
+            case "+":
+                return firstOperand + secondOperand;
+            case "-":
+                return firstOperand - secondOperand;
+            case "*":
+                return firstOperand * secondOperand;
+            case "/":
+                return firstOperand / secondOperand;
+            default:
+                return 0;
+
+        }
+
+    }
+}
+
+xml
+
+  <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="CALCULATOR"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/res"
+        android:layout_margin="30dp"
+        android:textSize="20dp"
+        android:hint="Result"
+        android:gravity="end"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9"
+            android:textSize="20dp"
+            android:id="@+id/nine"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="8"
+            android:textSize="20dp"
+            android:id="@+id/eight"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="7"
+            android:textSize="20dp"
+            android:id="@+id/seven"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="C"
+            android:textSize="20dp"
+            android:id="@+id/clear"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6"
+            android:textSize="20dp"
+            android:id="@+id/six"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textSize="20dp"
+            android:id="@+id/five"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:textSize="20dp"
+            android:id="@+id/four"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textSize="20dp"
+            android:id="@+id/plus"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textSize="20dp"
+            android:id="@+id/three"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textSize="20dp"
+            android:id="@+id/two"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="20dp"
+            android:id="@+id/one"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="20dp"
+            android:id="@+id/minus"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:textSize="20dp"
+            android:id="@+id/divide"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="20dp"
+            android:id="@+id/zero"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="="
+            android:textSize="20dp"
+            android:id="@+id/equal"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textSize="20dp"
+            android:id="@+id/multiply"
+            android:background="@color/white"
+            android:layout_weight="0.25"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
